@@ -1,0 +1,65 @@
+1: Game startup options: SAMP allows you to connect to servers using command line options. Use them to automatically connect to the desired server by specifying its IP address and port.
+
+Code explanation
+ •serverIp and serverPort - IP address and port of the server you want to connect to.
+ •sampPath - path to gta_sa.exe (specify it exactly).
+ •Parameters are passed through Arguments, which allows you to specify the nickname and address of the server to connect to.
+
+Additional steps
+  •Check if the SAMP client is present: Make sure SAMP is installed and the file path is correct.
+  •Error handling: Add additional checks to make sure the client is installed and the path is correct.
+
+This code starts SAMP and connects the user to the specified server immediately when the launcher starts.
+
+
+
+
+
+--THIS CODE IS FOR A SOLO CONNECTION NOT FOR A FULL-FLEDGED LAUNCHER!!!!!--
+
+C# - CODE
+
+========================================================================================
+
+using System;
+using System.Diagnostics;
+
+namespace SAMPLauncher
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            // Set the IP address and port of the server
+            string serverIp = "192.168.1.1";
+            string serverPort = "7777";
+            
+            // Path to the SAMP executable file
+            string sampPath = @"C:\Path\To\gta_sa.exe"; // Замените на путь к вашему файлу GTA SA
+
+            // Command line to connect to the server
+            string arguments = $"-c -n nickname -h {serverIp} -p {serverPort}";
+
+            try
+            {
+                // Create and configure the process
+                Process process = new Process();
+                process.StartInfo.FileName = sampPath;
+                process.StartInfo.Arguments = arguments;
+                process.StartInfo.UseShellExecute = false;
+
+                // Start the process
+                process.Start();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Произошла ошибка при запуске SAMP: {ex.Message}");
+            }
+        }
+    }
+}
+
+========================================================================================
+
+
+
